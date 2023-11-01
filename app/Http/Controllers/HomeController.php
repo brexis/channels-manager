@@ -9,16 +9,6 @@ use ICal\ICal;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -33,27 +23,32 @@ class HomeController extends Controller
             $selected_listing = $listings->first();
         }
 
-        $reservations = $selected_listing->reservations->map(function ($r) {
-            return [
-                'title' => $r->name,
-                'start' => $r->started_at,
-                'end' => $r->ended_at,
-            ];
-        });
+        $reservations = [];
+        if ($selected_listing) {
+            $reservations = $selected_listing->reservations->map(function ($r) {
+                return [
+                    'title' => $r->name,
+                    'start' => $r->started_at,
+                    'end' => $r->ended_at,
+                ];
+            });
+        }
 
-        $urls = $selected_listing->sources->pluck('url');
         $source_events = [];
 
-        try {
-            $ical = new ICal($urls->toArray());
-            foreach($ical->events() as $event) {
-                $source_events[] = [
-                    'title' => $event->summary,
-                    'start' => date("Y-m-d", strtotime($event->dtstart)),
-                    'end' => date("Y-m-d", strtotime($event->dtend))
-                ];
+        if ($selected_listing) {
+            $urls = $selected_listing->sources->pluck('url');
+            try {
+                $ical = new ICal($urls->toArray());
+                foreach($ical->events() as $event) {
+                    $source_events[] = [
+                        'title' => $event->summary,
+                        'start' => date("Y-m-d", strtotime($event->dtstart)),
+                        'end' => date("Y-m-d", strtotime($event->dtend))
+                    ];
+                }
+            } catch (\Exception $e) {
             }
-        } catch (\Exception $e) {
         }
 
         return view('home', compact('listings', 'selected_listing', 'source_events', 'reservations'));

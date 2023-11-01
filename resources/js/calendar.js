@@ -5,7 +5,7 @@ import axios from 'axios';
 
 document.addEventListener('DOMContentLoaded', function () {
     const exportListing = document.getElementById('export-listing')
-    exportListing.addEventListener('show.bs.modal', event => {
+    exportListing?.addEventListener('show.bs.modal', event => {
         const listingId = event.relatedTarget.dataset.listingId;
 
         const listingSources = document.getElementById('listing-sources');

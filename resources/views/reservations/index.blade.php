@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-header d-flex">
                     Les reservations de l'appartement : <strong>{{ $listing->name }}</strong>
-                    <a href="{{ route('listings.reservations.create', $listing->id) }}" class="ms-auto">
-                        Ajouter une reservation
+                    <a href="{{ route('listings.reservations.create', $listing->id) }}" class="ms-auto btn btn-primary">
+                        <i class="bi bi-bookmark-plus"></i> Ajouter une réservation
                     </a>
                 </div>
 
@@ -20,7 +20,7 @@
                                 <th>Nom</th>
                                 <th>Date d'arrivée</th>
                                 <th>Date de départ</th>
-                                <th>Actions</th>
+                                <th  style="width: 8rem">Actions</th>
                             </tr>
                         </thead>
 
@@ -32,11 +32,15 @@
                                 <td>{{ $reservation->started_at }}</td>
                                 <td>{{ $reservation->ended_at }}</td>
                                 <td>
-                                    <a href="{{ route('listings.reservations.edit', [$listing->id, $reservation->id]) }}">Mofidier</a> |
-                                    <form action="{{ route('listings.reservations.destroy', [$listing->id, $reservation->id]) }}" method="post">
+                                    <a title="Modifier" href="{{ route('listings.reservations.edit', [$listing->id, $reservation->id]) }}" class="btn btn-sm btn-secondary">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <form action="{{ route('listings.reservations.destroy', [$listing->id, $reservation->id]) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-link text-danger" onclick="return confirm('Are you sure?')" >Supprimer</button>
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" >
+                                            <i class="bi bi-trash"></i>
+                                        </button>
                                     </form>
                                 </td>
                             </tr>

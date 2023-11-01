@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-header d-flex">
                     Mes appartements
-                    <a href="{{ route('listings.create') }}" class="ms-auto">
-                        Ajouter
+                    <a href="{{ route('listings.create') }}" class="ms-auto btn btn-primary">
+                        <i class="bi bi-house-add"></i> Ajouter
                     </a>
                 </div>
 
@@ -18,7 +18,7 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Nom de l'appartement</th>
-                                <th>Actions</th>
+                                <th  style="width: 15rem">Actions</th>
                             </tr>
                         </thead>
 
@@ -28,10 +28,25 @@
                                 <td>#{{ $listing->id }}</td>
                                 <td>{{ $listing->name }}</td>
                                 <td>
-                                    <a href="{{ route('listings.edit', $listing->id) }}">Mofidier</a> |
-                                    <a href="{{ route('listings.sources.index', $listing->id) }}">Sources</a> |
-                                    <a href="{{ route('listings.reservations.index', $listing->id) }}">Reservations</a> |
-                                    <a href="#" data-listing-id="{{ $listing->id }}" data-bs-toggle="modal" data-bs-target="#export-listing">Exporter</a>
+                                    <a title="Modifier" href="{{ route('listings.edit', $listing->id) }}" class="btn btn-sm btn-secondary">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a title="Autre sources" href="{{ route('listings.sources.index', $listing->id) }}" class="btn btn-sm btn-secondary">
+                                        <i class="bi bi-link-45deg"></i>
+                                    </a>
+                                    <a title="Mes réservations" href="{{ route('listings.reservations.index', $listing->id) }}" class="btn btn-sm btn-secondary">
+                                        <i class="bi bi-bookmarks"></i>
+                                    </a>
+                                    <a href="#" title="Exporter le calendrier" data-listing-id="{{ $listing->id }}" data-bs-toggle="modal" data-bs-target="#export-listing" class="btn btn-sm btn-secondary">
+                                        <i class="bi bi-calendar2-week"></i>
+                                    </a>
+                                    <form action="{{ route('listings.destroy', $listing->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button title="Supprimer" type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')" >
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
