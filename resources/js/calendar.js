@@ -1,7 +1,6 @@
 import { Calendar } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import iCalendarPlugin from '@fullcalendar/icalendar'
 import axios from 'axios';
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -50,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     var calendar = new Calendar(calendarEl, {
-        plugins: [interactionPlugin, dayGridPlugin, iCalendarPlugin],
+        plugins: [interactionPlugin, dayGridPlugin],
         initialView: 'dayGridMonth',
         selectable: true,
         locale: 'fr',
