@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         listingSources.addEventListener('change', function() {
-            let value = `${window.APP_URL}/listings/${listingId}/ical`;
+            let value = `${window.APP_URL}/listings/${listingId}/ical.ics`;
 
             if (this.value) {
                 value += `?without=${this.value}`;
