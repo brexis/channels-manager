@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 events: window.reservations
             }
-        ]
+        ],
+        eventClassNames: 'event-class'
     });
 
     calendar.on('select', (e) => {
@@ -94,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(error);
         });
     });
+
     calendar.render();
 
     document.getElementById('listing-switch').addEventListener('change', function () {
