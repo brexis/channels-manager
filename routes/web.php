@@ -23,4 +23,4 @@ Route::middleware('auth')->group(function() {
     Route::resource('listings.reservations', App\Http\Controllers\ReservationsController::class);
 });
 
-Route::get('/listings/{listing}/ical.ics', [App\Http\Controllers\ListingsController::class, 'ical'])->name('listings.ical');
+Route::get('/listings/{listing}/ical', [App\Http\Controllers\ListingsController::class, 'ical'])->name('listings.ical');

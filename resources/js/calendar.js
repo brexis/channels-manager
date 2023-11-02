@@ -29,8 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
+        const defaultExportUrl = `${window.APP_URL}/listings/${listingId}/ical`;
+        listingUrl.value = defaultExportUrl;
+
         listingSources.addEventListener('change', function() {
-            let value = `${window.APP_URL}/listings/${listingId}/ical.ics`;
+            let value = defaultExportUrl;
 
             if (this.value) {
                 value += `?without=${this.value}`;
@@ -38,8 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             listingUrl.value = value;
         });
-
-        listingUrl.value = `${window.APP_URL}/listings/${listingId}/ical`;
     });
 
     var calendarEl = document.getElementById('calendar');
