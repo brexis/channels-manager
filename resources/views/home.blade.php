@@ -21,6 +21,7 @@
     var source_events = @json($source_events);
     var reservations = @json($reservations);
     var listing = @json($selected_listing);
+    var authenticated = {{ Auth::check() ? 'true' : 'false' }};
 </script>
 <div class="container" id="calendar"></div>
 @endsection

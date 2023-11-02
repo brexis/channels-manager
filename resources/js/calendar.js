@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var calendar = new Calendar(calendarEl, {
         plugins: [interactionPlugin, dayGridPlugin],
         initialView: 'dayGridMonth',
-        selectable: true,
+        selectable: window.authenticated && window.listing,
         locale: 'fr',
         eventSources: [
             {
@@ -68,6 +68,14 @@ document.addEventListener('DOMContentLoaded', function () {
     calendar.on('select', (e) => {
         const title = window.prompt('New event');
         if (!title) {
+            return;
+        }
+
+        if (!window.authenticated) {
+            return;
+        }
+
+        if (!window.listing) {
             return;
         }
 
