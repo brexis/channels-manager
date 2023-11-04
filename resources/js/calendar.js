@@ -2,6 +2,7 @@ import { Calendar } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import axios from 'axios';
+import * as bootstrap from 'bootstrap'
 
 document.addEventListener('DOMContentLoaded', function () {
     const exportListing = document.getElementById('export-listing')
@@ -64,7 +65,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 events: window.reservations
             }
         ],
-        eventClassNames: 'event-class'
+        eventClassNames: 'event-class',
+        eventClick: function(info) {
+            document.getElementById('reservation-title').innerHTML = info.event.title;
+            document.getElementById('reservation-start').innerHTML = info.event.startStr;
+            document.getElementById('reservation-end').innerHTML = info.event.endStr;
+            document.getElementById('reservation-description').innerHTML = info.event.extendedProps.description;
+            console.log(info.event);
+            const myModal = new bootstrap.Modal(document.getElementById('show-reservation'), {});
+            console.log(myModal.show());
+        }
     });
 
     calendar.on('select', (e) => {

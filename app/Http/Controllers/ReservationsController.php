@@ -38,6 +38,7 @@ class ReservationsController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'required|max:255',
+            'description' => 'required',
             'started_at' => 'required|date',
             'ended_at' => 'required|date',
         ]);
@@ -47,6 +48,7 @@ class ReservationsController extends Controller
         if ($request->wantsJson()) {
             return response()->json([
                 'title' => $reservation->name,
+                'description' => $reservation->description,
                 'start' => $reservation->started_at,
                 'end' => $reservation->ended_at,
             ]);
@@ -86,6 +88,7 @@ class ReservationsController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'required|max:255',
+            'description' => 'required',
             'started_at' => 'required|date',
             'ended_at' => 'required|date',
         ]);

@@ -30,6 +30,7 @@ class ListingsController extends Controller
         Listing::find($id)->reservations->each(function ($r) use($calendar) {
             $calendar->event(
                 Event::create($r->name)
+                    ->description($r->description)
                     ->startsAt(new \DateTime($r->started_at))
                     ->endsAt(new \DateTime($r->ended_at))
             );
@@ -41,6 +42,7 @@ class ListingsController extends Controller
             foreach($ical->events() as $event) {
                 $calendar->event(
                     Event::create($event->summary)
+                        ->description($event->description)
                         ->startsAt(new \DateTime($event->dtstart))
                         ->endsAt(new \DateTime($event->dtend))
                 );

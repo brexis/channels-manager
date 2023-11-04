@@ -28,8 +28,9 @@ class HomeController extends Controller
             $reservations = $selected_listing->reservations->map(function ($r) {
                 return [
                     'title' => $r->name,
+                    'description' => $r->description,
                     'start' => $r->started_at,
-                    'end' => $r->ended_at,
+                    'end' => $r->ended_at
                 ];
             });
         }
@@ -43,6 +44,7 @@ class HomeController extends Controller
                 foreach($ical->events() as $event) {
                     $source_events[] = [
                         'title' => $event->summary,
+                        'description' => $event->description,
                         'start' => date("Y-m-d", strtotime($event->dtstart)),
                         'end' => date("Y-m-d", strtotime($event->dtend))
                     ];

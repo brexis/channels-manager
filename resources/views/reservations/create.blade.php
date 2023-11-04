@@ -51,6 +51,18 @@
                             </div>
                         </div>
 
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+
+                            <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description">{{ old('description') }}</textarea>
+
+                            @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
                         <div class="mb-0">
                             <button type="submit" class="btn btn-primary">Enregistrer</button>
                         </div>
