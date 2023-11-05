@@ -28,7 +28,7 @@
                             @foreach($reservations as $reservation)
                             <tr>
                                 <td>#{{ $reservation->id }}</td>
-                                <td>{{ $reservation->name }}</td>
+                                <td>{{ $reservation->name }} ({{ $reservation->nights }} Nuits)</td>
                                 <td>{{ $reservation->started_at }}</td>
                                 <td>{{ $reservation->ended_at }}</td>
                                 <td>

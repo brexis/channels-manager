@@ -39,16 +39,21 @@
                 <h4><em id="reservation-title"></em></h4>
             </div>
             <div class="mb-3">
-                <label class="form-label">Réservé du</label>
-                <kbd id="reservation-start"></kbd> Au <kbd id="reservation-end"></kbd>
+              <label class="form-label">Réservé pour </label> <kbd class="text-capitalize" id="reservation-nights"></kbd> <br>
+                <label class="form-label">Du</label>
+                <kbd class="text-capitalize" id="reservation-start"></kbd> <br>
+                <label class="form-label">Au</label>
+                <kbd class="text-capitalize" id="reservation-end"></kbd>
             </div>
             <div class="mb-3">
+                <label class="form-label">Information sur la réservation</label>
                 <div id="reservation-description" class="border rounded p-3" style="white-space: pre-wrap"></div>
             </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <a href="#" role="button" class="btn btn-primary d-none" id="reservation-edit">Modifier la réservation</a>
       </div>
     </div>
   </div>

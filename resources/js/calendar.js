@@ -2,7 +2,15 @@ import { Calendar } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import axios from 'axios';
-import * as bootstrap from 'bootstrap'
+import * as bootstrap from 'bootstrap';
+import * as dayjs from 'dayjs';
+import 'dayjs/locale/fr';
+import * as localizedFormat from 'dayjs/plugin/localizedFormat';
+import * as utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(localizedFormat);
+dayjs.locale('fr');
 
 document.addEventListener('DOMContentLoaded', function () {
     const exportListing = document.getElementById('export-listing')
@@ -68,12 +76,20 @@ document.addEventListener('DOMContentLoaded', function () {
         eventClassNames: 'event-class',
         eventClick: function(info) {
             document.getElementById('reservation-title').innerHTML = info.event.title;
-            document.getElementById('reservation-start').innerHTML = info.event.startStr;
-            document.getElementById('reservation-end').innerHTML = info.event.endStr;
+            document.getElementById('reservation-start').innerHTML = dayjs(info.event.startStr).utc().format('LLLL');
+            document.getElementById('reservation-end').innerHTML = dayjs(info.event.endStr).utc().format('LLLL');
             document.getElementById('reservation-description').innerHTML = info.event.extendedProps.description;
-            console.log(info.event);
+            document.getElementById('reservation-nights').innerHTML = info.event.extendedProps.nights + ' Nuits';
+            const a = document.getElementById('reservation-edit');
+
+            if (info.event.extendedProps.reservationId) {
+                a.classList.remove('d-none');
+                a.href = `${window.APP_URL}/listings/${window.listing.id}/reservations/${info.event.extendedProps.reservationId}/edit`;
+            } else {
+                a.classList.add('d-none');
+            }
             const myModal = new bootstrap.Modal(document.getElementById('show-reservation'), {});
-            console.log(myModal.show());
+            myModal.show();
         }
     });
 
@@ -108,7 +124,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     calendar.render();
 
-    document.getElementById('listing-switch').addEventListener('change', function () {
+    const listingSwitch = document.getElementById('listing-switch');
+    listingSwitch?.addEventListener('change', function () {
         window.location = this.value;
     });
 });

@@ -31,8 +31,8 @@ class ListingsController extends Controller
             $calendar->event(
                 Event::create($r->name)
                     ->description($r->description)
-                    ->startsAt(new \DateTime($r->started_at))
-                    ->endsAt(new \DateTime($r->ended_at))
+                    ->startsAt($r->started_at->toDateTime())
+                    ->endsAt($r->ended_at->toDateTime())
             );
         });
 
@@ -42,7 +42,7 @@ class ListingsController extends Controller
             foreach($ical->events() as $event) {
                 $calendar->event(
                     Event::create($event->summary)
-                        ->description($event->description)
+                        ->description($event->description ?? '')
                         ->startsAt(new \DateTime($event->dtstart))
                         ->endsAt(new \DateTime($event->dtend))
                 );

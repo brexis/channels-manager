@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Listing;
 use ICal\ICal;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -27,10 +28,12 @@ class HomeController extends Controller
         if ($selected_listing) {
             $reservations = $selected_listing->reservations->map(function ($r) {
                 return [
+                    'reservationId' => $r->id,
                     'title' => $r->name,
                     'description' => $r->description,
                     'start' => $r->started_at,
-                    'end' => $r->ended_at
+                    'end' => $r->ended_at,
+                    'nights' => $r->nights,
                 ];
             });
         }
@@ -42,11 +45,14 @@ class HomeController extends Controller
             try {
                 $ical = new ICal($urls->toArray());
                 foreach($ical->events() as $event) {
+                    $start = Carbon::parse($event->dtstart);
+                    $end = Carbon::parse($event->dtend);
                     $source_events[] = [
                         'title' => $event->summary,
                         'description' => $event->description,
-                        'start' => date("Y-m-d", strtotime($event->dtstart)),
-                        'end' => date("Y-m-d", strtotime($event->dtend))
+                        'start' => $start->toDateTimeString(),
+                        'end' => $end->toDateTimeString(),
+                        'nights' => $start->startOfDay()->diffInDays($end),
                     ];
                 }
             } catch (\Exception $e) {

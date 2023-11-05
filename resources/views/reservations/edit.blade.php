@@ -30,7 +30,7 @@
                             <div class="col-md-6">
                                 <label for="started_at" class="form-label">Date d'arrivée</label>
 
-                                <input id="started_at" type="date" class="form-control @error('started_at') is-invalid @enderror" name="started_at" value="{{ $reservation->started_at }}" required autocomplete="started_at">
+                                <input id="started_at" type="datetime-local" class="form-control @error('started_at') is-invalid @enderror" name="started_at" value="{{ $reservation->started_at }}" required autocomplete="started_at">
 
                                 @error('started_at')
                                     <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
                             <div class="col-md-6">
                                 <label for="ended_at" class="form-label">Date de sortie</label>
 
-                                <input id="ended_at" type="date" class="form-control @error('ended_at') is-invalid @enderror" name="ended_at" value="{{ $reservation->ended_at }}" required autocomplete="ended_at">
+                                <input id="ended_at" type="datetime-local" class="form-control @error('ended_at') is-invalid @enderror" name="ended_at" value="{{ $reservation->ended_at }}" required autocomplete="ended_at">
 
                                 @error('ended_at')
                                     <span class="invalid-feedback" role="alert">
