@@ -3,10 +3,10 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import axios from 'axios';
 import * as bootstrap from 'bootstrap';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
-import * as localizedFormat from 'dayjs/plugin/localizedFormat';
-import * as utc from 'dayjs/plugin/utc';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(utc);
 dayjs.extend(localizedFormat);
