@@ -73,7 +73,7 @@
             </div>
             <div class="input-group mb-3">
                 <input type="text" readonly id="listing-url-input" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                <button class="btn btn-outline-primary" type="button" id="button-copy">Copier</button>
+                <button class="btn btn-outline-primary btn-copy" type="button" data-clipboard-target="#listing-url-input">Copier</button>
             </div>
         </form>
       </div>

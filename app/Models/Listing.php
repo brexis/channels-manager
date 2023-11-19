@@ -10,7 +10,7 @@ class Listing extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'description', 'nigth_price', 'week_price', 'month_price'];
 
     public function sources(): HasMany
     {

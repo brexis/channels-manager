@@ -45,8 +45,8 @@ class HomeController extends Controller
             try {
                 $ical = new ICal($urls->toArray());
                 foreach($ical->events() as $event) {
-                    $start = Carbon::parse($event->dtstart);
-                    $end = Carbon::parse($event->dtend);
+                    $start = Carbon::parse($event->dtstart)->setHour(12);
+                    $end = Carbon::parse($event->dtend)->setHour(12);
                     $source_events[] = [
                         'title' => $event->summary,
                         'description' => $event->description,

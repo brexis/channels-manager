@@ -43,8 +43,8 @@ class ListingsController extends Controller
                 $calendar->event(
                     Event::create($event->summary)
                         ->description($event->description ?? '')
-                        ->startsAt(new \DateTime($event->dtstart))
-                        ->endsAt(new \DateTime($event->dtend))
+                        ->startsAt((new \DateTime($event->dtstart))->setTime(12))
+                        ->endsAt((new \DateTime($event->dtend))->setTime(12))
                 );
             }
         } catch (\Exception $e) {
@@ -68,7 +68,11 @@ class ListingsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'nigth_price' => 'required|integer',
+            'week_price' => 'required|integer',
+            'month_price' => 'required|integer',
         ]);
 
         Listing::create($validatedData);
@@ -102,7 +106,11 @@ class ListingsController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'nigth_price' => 'required|integer',
+            'week_price' => 'required|integer',
+            'month_price' => 'required|integer',
         ]);
 
         $listing = Listing::find($id);

@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import utc from 'dayjs/plugin/utc';
+import ClipboardJS from 'clipboard';
 
 dayjs.extend(utc);
 dayjs.extend(localizedFormat);
@@ -51,6 +52,16 @@ document.addEventListener('DOMContentLoaded', function () {
             listingUrl.value = value;
         });
     });
+
+    // Copy
+    let clipboardElmt = new ClipboardJS('.btn-copy');
+    clipboardElmt.on('success', (e) => {
+        const tooltip = new bootstrap.Tooltip(e.trigger, {
+            title: 'Copié',
+            placement: 'bottom'
+        });
+        tooltip.show();
+    })
 
     var calendarEl = document.getElementById('calendar');
 
