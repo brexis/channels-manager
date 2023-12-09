@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Listing;
 use ICal\ICal;
 use Carbon\Carbon;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -29,8 +30,8 @@ class HomeController extends Controller
             $reservations = $selected_listing->reservations->map(function ($r) {
                 return [
                     'reservationId' => $r->id,
-                    'title' => $r->name,
-                    'description' => $r->description,
+                    'title' => Auth::check() ? $r->name : 'Occupé',
+                    'description' => Auth::check() ? $r->description : 'Appartement non disponible',
                     'start' => $r->started_at,
                     'end' => $r->ended_at,
                     'nights' => $r->nights,
@@ -45,11 +46,20 @@ class HomeController extends Controller
             try {
                 $ical = new ICal($urls->toArray());
                 foreach($ical->events() as $event) {
-                    $start = Carbon::parse($event->dtstart)->setHour(12);
-                    $end = Carbon::parse($event->dtend)->setHour(12);
+                    $start = Carbon::parse($event->dtstart);
+                    $end = Carbon::parse($event->dtend);
+
+                    // Escape Airbnb today disable
+                    if ($event->summary == 'Airbnb (Not available)' && $start->diffInDays($end) == 1) {
+                        continue;
+                    }
+
+                    $start->setHour(12);
+                    $end->setHour(12);
+
                     $source_events[] = [
-                        'title' => $event->summary,
-                        'description' => $event->description,
+                        'title' => Auth::check() ? $event->summary : 'Occupé',
+                        'description' => Auth::check() ? $event->description : 'Appartement non disponible',
                         'start' => $start->toDateTimeString(),
                         'end' => $end->toDateTimeString(),
                         'nights' => $start->startOfDay()->diffInDays($end),

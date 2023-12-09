@@ -74,14 +74,17 @@ document.addEventListener('DOMContentLoaded', function () {
         initialView: 'dayGridMonth',
         selectable: window.authenticated && window.listing,
         locale: 'fr',
+        // events: window.source_events,
         eventSources: [
             {
                 events: window.source_events,
-                color: 'yellow',    // an option!
-                textColor: 'black'  // an option!
+                color: window.authenticated ? 'yellow' : '#cccccc',    // an option!
+                textColor: 'black',  // an option!
             },
             {
-                events: window.reservations
+                events: window.reservations,
+                color: window.authenticated ? '' : '#cccccc',    // an option!
+                textColor: window.authenticated ? 'white' : 'black',  // an option!
             }
         ],
         eventClassNames: 'event-class',
